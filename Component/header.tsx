@@ -8,19 +8,21 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 type Props = {
-    title?: string,
-    iconRight ?: ReactNode
-}
+  title?: string;
+  iconRight?: ReactNode;
+};
 
-const Header = (props:Props) => {
-    const {title, iconRight} = props
+const Header = (props: Props) => {
+  const { title, iconRight } = props;
+  const navigation = useNavigation()
   return (
     <View style={styles.container}>
-      <View style={{ flexDirection: "row",justifyContent:"space-between" }}>
-        <TouchableOpacity>
-          <View style={{marginTop:5}}>
+      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <View style={{ marginTop: 5 }}>
             <Ionicons name="chevron-back" size={28} color="black" />
           </View>
         </TouchableOpacity>
@@ -30,14 +32,11 @@ const Header = (props:Props) => {
             alignSelf: "center",
             fontSize: 30,
             fontWeight: "600",
-           
           }}
         >
           {title}
         </Text>
-        <View style={{marginTop:5}}>
-            {iconRight}
-        </View>
+        <View style={{ marginTop: 5 }}>{iconRight}</View>
       </View>
 
       {/* <View>
@@ -61,7 +60,7 @@ const Header = (props:Props) => {
 const styles = StyleSheet.create({
   container: {
     marginTop: 50,
-    marginHorizontal:10
+    marginHorizontal: 10,
   },
 });
 
