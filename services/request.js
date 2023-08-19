@@ -25,7 +25,7 @@ export const getdatacoinchart = async (coinId) => {
 export const getListCoinMarket = async () => {
   try {
     const response = await axios.get(  
-      `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=1&sparkline=false&price_change_percentage=1h&locale=en`
+      `https://api.coinranking.com/v2/coins`
     );
     return response.data;
   } catch (e) {
@@ -33,3 +33,13 @@ export const getListCoinMarket = async () => {
   }
 };
 
+export const getNewsCrypto = async () => {
+  try {
+    const response = await axios.get(  
+      `https://newsapi.org/v2/everything?q=tesla&from=2023-07-19&sortBy=publishedAt&apiKey=00794961679940ca87716520439685c7`
+    );
+    return response.data;
+  } catch (e) {
+    console.log(e);
+  }
+};

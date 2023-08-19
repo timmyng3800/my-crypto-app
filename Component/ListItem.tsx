@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { Float } from "react-native/Libraries/Types/CodegenTypes";
 import { getDetailCoinData, getListCoinMarket } from "../services/request";
+import SvgUri from "react-native-svg-uri";
 type Props = {
   name?: string;
   image?: string;
@@ -27,17 +28,13 @@ const ListItem = (props: Props) => {
     coinId,
   } = props;
   const navigation = useNavigation<Nav>();
-  // const [coin, setCoin] = useState() as any;
-  // const [loading, setLoading] = useState(false);
+  const [coin, setCoin] = useState() as any;
+  
 
-  // const fetchCoinDetailData = async () => {
-  //   const coinDetail = await getListCoinMarket();
-  //   setCoin(coinDetail);
-  // };
-
-  // useEffect(() => {
-  //   fetchCoinDetailData();
-  // }, [0]);
+  const nameToLowerCase = name?.toLowerCase()
+  
+ 
+  
   return (
     <View>
       <TouchableOpacity
@@ -49,7 +46,8 @@ const ListItem = (props: Props) => {
             current_price,
             price_change,
             total_volume,
-            coinId,
+            nameToLowerCase,
+            coinId
           })
         }
       >

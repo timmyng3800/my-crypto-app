@@ -51,6 +51,7 @@ type Route = RouteProp<{
     price_change: number;
     total_volume: number;
     coinId?: string;
+    nameToLowerCase?:string;
   };
 }>;
 const CryptoDetails = () => {
@@ -58,16 +59,16 @@ const CryptoDetails = () => {
   const [coin, setCoin] = useState() as any;
   const [loading, setLoading] = useState(false);
   const [chartData, setChartData] = useState() as any;
-
+    
   const fetchCoinDetailData = async () => {
     setLoading(false);
     const coinDetail = await getDetailCoinData(route.params.coinId);
     const coinChart = await getdatacoinchart(route.params.coinId)
-    setLoading(true);
+    
     setCoin(coinDetail);
-    setChartData(coinChart)
+    setChartData(coinChart);
+    setLoading(true);
   };
-   console.log("chart", chartData?.prices);
   useEffect(() => {
     fetchCoinDetailData();
   }, [0]);
@@ -93,7 +94,7 @@ const CryptoDetails = () => {
                 alignSelf: "center",
                 marginBottom: 10,
               }}
-              source={{ uri: `${route.params.image}` }}
+              source={{ uri: `${coin?.image.small}` }}
             />
             <Text style={{ fontSize: 20, alignSelf: "center" }}>
               {route.params.symbol}

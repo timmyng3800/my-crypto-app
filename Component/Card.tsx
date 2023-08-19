@@ -16,8 +16,7 @@ const Card = (props: Props) => {
           flexDirection: "row",
           justifyContent: "space-between",
           marginHorizontal: 12,
-          marginTop: 10,
-          marginBottom: 20,
+          marginVertical: 10,
         }}
       >
         <Text style={{ fontSize: 20, fontWeight: "700" }}>{title}</Text>
@@ -40,7 +39,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#FDEBD0",
     marginHorizontal: 30,
-    marginVertical: 30,
+    marginTop:20,
     borderRadius: 10,
   },
 });

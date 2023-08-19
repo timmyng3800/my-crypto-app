@@ -2,54 +2,91 @@ import { StatusBar } from "expo-status-bar";
 import {
   ActivityIndicator,
   FlatList,
+  ScrollView,
   StyleSheet,
   Text,
   View,
 } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
 
 import Card from "../Component/Card";
 import ListItem from "../Component/ListItem";
 import cryptocurrencies from "../data/cryptocurrencies.json";
 import { useNavigation } from "@react-navigation/native";
 import { useEffect, useState } from "react";
-import { getDetailCoinData } from "../services/request";
+import {
+  getDetailCoinData,
+  getListCoinMarket,
+  getNewsCrypto,
+} from "../services/request";
+
+import ListNews from "../Component/ListNews";
 type Nav = {
   navigate: (value: any) => void;
 };
 export default function Home() {
   const navigation = useNavigation<Nav>();
   const [coin, setCoin] = useState() as any;
-  // console.log("coinID",route.params.coinId);
+  const [news, setNews] = useState();
+  const [loading, setLoading] = useState(false);
 
-  // const fetchCoinDetailData = async () => {
-  //   const coinDetail = await getDetailCoinData(route.params.coinId);
-  //   setCoin(coinDetail);
-  // };
-  // console.log("dsad", coin?.market_data.price_change_percentage_24h);
-  // useEffect(() => {
-  //   fetchCoinDetailData();
-  // }, [0]);
+  const fetchCoinDetailData = async () => {
+    const coinDetail = await getListCoinMarket();
+    if (coinDetail.status === "success") {
+      setCoin(coinDetail?.data?.coins);
+      setLoading(true);
+    } else return null;
+
+    const News = await getNewsCrypto();
+    if (News.status === "ok") {
+      setNews(News.articles);
+    } else return null;
+  };
+
+  useEffect(() => {
+    fetchCoinDetailData();
+  }, [0]);
+
+  const CombineList = coin?.map((i: any) => {
+    const cryptolist = cryptocurrencies.find((_coin) => _coin.name === i.name);
+    return {
+      ...cryptolist,
+      ...i,
+    };
+  });
+
   return (
     <View>
       <Text style={styles.title}>Crypto Currency Tracker</Text>
-      <StatusBar style="auto" />
-      <Card title="Market" onPress={() => navigation.navigate("ListOfCoin")}>
-        <FlatList
-          data={cryptocurrencies.slice(0, 5)}
-          renderItem={(item) => (
-            <ListItem
-              name={item.item.name}
-              image={item.item.image}
-              current_price={item.item.current_price}
-              symbol={item.item.symbol}
-              price_change={item.item.price_change_percentage_24h}
-              total_volume={item.item.total_volume}
-              coinId={item.item.id}
+      <ScrollView nestedScrollEnabled={true}>
+        <ScrollView>
+          <StatusBar style="auto" />
+          <Card
+            title="Market"
+            onPress={() => navigation.navigate("ListOfCoin")}
+          >
+            <FlatList
+              scrollEnabled={false}
+              data={CombineList?.slice(0, 5)}
+              renderItem={(item) => (
+                <ListItem
+                  name={item.item.name}
+                  image={item.item.image}
+                  current_price={item.item.price}
+                  symbol={item.item.symbol}
+                  price_change={item.item.change}
+                  total_volume={item.item.total_volume}
+                  coinId={item.item.id}
+                />
+              )}
             />
-          )}
-        />
-      </Card>
+          </Card>
+        </ScrollView>
+        <View style={{marginBottom:100}}>
+          <Card title="News">
+            <ListNews price_change={0} />
+          </Card>
+        </View>
+      </ScrollView>
     </View>
   );
 }
