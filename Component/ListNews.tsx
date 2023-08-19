@@ -5,40 +5,51 @@ import { Float } from "react-native/Libraries/Types/CodegenTypes";
 import { getDetailCoinData, getListCoinMarket } from "../services/request";
 import SvgUri from "react-native-svg-uri";
 type Props = {
-  name?: string;
-  image?: string;
-  symbol?: string;
-  current_price?: number;
-  price_change?: Float;
-  total_volume?: number;
-  coinId?: string;
+  author?: string;
+  title?: string;
+  description?: string;
+  url?: string;
+  urlToImage?: string;
 };
 
 type Nav = {
   navigate: (value: string, params: any) => void;
 };
 const ListNews = (props: Props) => {
-  const { name } = props;
+  const { author, title, url, urlToImage, description } = props;
   const navigation = useNavigation<Nav>();
   const [coin, setCoin] = useState() as any;
 
   return (
-    <View>
-      <Image
-        style={{ width: "100%", height: 200 }}
-        source={{ uri: "https://c.biztoc.com/p/5c0f12d3893bac30/s.webp" }}
-      />
-      <Text style={{fontWeight:"700", fontSize:20, marginVertical:20}}>this is title</Text>
-      <Text>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</Text>
-    </View>
+    <TouchableOpacity>
+      <View style={styles.container}>
+        <Image
+          style={{ width: "100%", height: 200, borderRadius: 8 }}
+          source={{ uri: urlToImage }}
+        />
+        <View style={{ marginHorizontal: 10 }}>
+          <Text style={{ fontWeight: "700", fontSize: 18, marginVertical: 10 }}>
+            {title}
+          </Text>
+          <Text
+            style={{ marginBottom: 10, fontWeight: "400" }}
+            numberOfLines={4}
+          >
+            {description}
+          </Text>
+        </View>
+      </View>
+    </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
-  line: {
-    opacity: 0.2,
-    borderBottomColor: "black",
-    borderBottomWidth: StyleSheet.hairlineWidth,
+  container: {
+    width: 320,
+    borderWidth: 0.5,
+    marginHorizontal: 20,
+    borderColor: "grey",
+    borderRadius: 8,
   },
 });
 

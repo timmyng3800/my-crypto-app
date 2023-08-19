@@ -26,7 +26,7 @@ type Nav = {
 export default function Home() {
   const navigation = useNavigation<Nav>();
   const [coin, setCoin] = useState() as any;
-  const [news, setNews] = useState();
+  const [news, setNews] = useState() as any;
   const [loading, setLoading] = useState(false);
 
   const fetchCoinDetailData = async () => {
@@ -54,6 +54,8 @@ export default function Home() {
     };
   });
 
+
+
   return (
     <View>
       <Text style={styles.title}>Crypto Currency Tracker</Text>
@@ -62,6 +64,7 @@ export default function Home() {
           <StatusBar style="auto" />
           <Card
             title="Market"
+            hasViewAll={true}
             onPress={() => navigation.navigate("ListOfCoin")}
           >
             <FlatList
@@ -81,9 +84,21 @@ export default function Home() {
             />
           </Card>
         </ScrollView>
-        <View style={{marginBottom:100}}>
-          <Card title="News">
-            <ListNews price_change={0} />
+        <View style={{ marginBottom: 100 }}>
+          <Card title="News" hasViewAll={false}>
+            <FlatList
+              horizontal
+              data={news?.slice(0, 5)}
+              renderItem={(item) => (
+                <ListNews
+                  title={item.item.title}
+                  urlToImage={item.item.urlToImage}
+                  author={item.item.author}
+                  url={item.item.url}
+                  description={item.item.description}
+                />
+              )}
+            />
           </Card>
         </View>
       </ScrollView>

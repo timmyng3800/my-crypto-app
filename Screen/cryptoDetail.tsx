@@ -51,7 +51,7 @@ type Route = RouteProp<{
     price_change: number;
     total_volume: number;
     coinId?: string;
-    nameToLowerCase?:string;
+    nameToLowerCase?: string;
   };
 }>;
 const CryptoDetails = () => {
@@ -59,12 +59,12 @@ const CryptoDetails = () => {
   const [coin, setCoin] = useState() as any;
   const [loading, setLoading] = useState(false);
   const [chartData, setChartData] = useState() as any;
-    
+
   const fetchCoinDetailData = async () => {
     setLoading(false);
     const coinDetail = await getDetailCoinData(route.params.coinId);
-    const coinChart = await getdatacoinchart(route.params.coinId)
-    
+    const coinChart = await getdatacoinchart(route.params.coinId);
+
     setCoin(coinDetail);
     setChartData(coinChart);
     setLoading(true);
@@ -78,7 +78,10 @@ const CryptoDetails = () => {
       {loading ? (
         <ChartPathProvider
           data={{
-            points: chartData?.prices.map((price: any) => ({ x: price[0], y: price[1] })),
+            points: chartData?.prices.map((price: any) => ({
+              x: price[0],
+              y: price[1],
+            })),
             smoothingStrategy: "bezier",
           }}
         >

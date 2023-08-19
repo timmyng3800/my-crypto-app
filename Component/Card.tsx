@@ -5,10 +5,11 @@ type Props = {
   children?: React.ReactNode;
   title?: string;
   onPress?: () => void;
+  hasViewAll?: boolean;
 };
 
 const Card = (props: Props) => {
-  const { children, title,onPress } = props;
+  const { children, title, onPress, hasViewAll } = props;
   return (
     <View style={styles.container}>
       <View
@@ -21,12 +22,18 @@ const Card = (props: Props) => {
       >
         <Text style={{ fontSize: 20, fontWeight: "700" }}>{title}</Text>
         <TouchableOpacity onPress={onPress}>
-          <View style={{ flexDirection: "row", marginTop: 4 }}>
-            <Text style={{ marginRight: 3, fontWeight: "700" }}>View all</Text>
-            <Image
-              style={{ width: 15, height: 15, marginTop: 2 }}
-              source={require("../assets/right-arrow.png")}
-            />
+          <View>
+            {hasViewAll ? (
+              <View style={{ flexDirection: "row", marginTop: 4 }}>
+                <Text style={{ marginRight: 3, fontWeight: "700" }}>
+                  View all
+                </Text>
+                <Image
+                  style={{ width: 15, height: 15, marginTop: 2 }}
+                  source={require("../assets/right-arrow.png")}
+                />
+              </View>
+            ) : null}
           </View>
         </TouchableOpacity>
       </View>
@@ -39,7 +46,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#FDEBD0",
     marginHorizontal: 30,
-    marginTop:20,
+    marginTop: 20,
     borderRadius: 10,
   },
 });
