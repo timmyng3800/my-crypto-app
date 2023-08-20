@@ -5,16 +5,17 @@ import AllCrypto from "../Screen/allCrypto";
 import Home from "../Screen/Home";
 import CryptoDetails from "../Screen/cryptoDetail";
 import WebViewScreen from "../Screen/WebViewScreen";
+import BottomTabBar from "./BottomTabBar";
 
 const Stack = createNativeStackNavigator();
 
 const Navigation = () => {
   return (
     <Stack.Navigator
-      initialRouteName="Home"
+      initialRouteName="Root"
       screenOptions={{ headerShown: false }}
     >
-      <Stack.Screen name="Home" component={Home}></Stack.Screen>
+      <Stack.Screen name="Root" component={BottomTabBar}></Stack.Screen>
       <Stack.Screen name="ListOfCoin" component={AllCrypto}></Stack.Screen>
       <Stack.Screen
         name="DetailScreen"

@@ -28,7 +28,7 @@ const ListNews = (props: Props) => {
           source={{ uri: urlToImage }}
         />
         <View style={{ marginHorizontal: 10 }}>
-          <Text style={{ fontWeight: "700", fontSize: 18, marginVertical: 10 }}>
+          <Text numberOfLines={4} style={{ fontWeight: "700", fontSize: 18, marginVertical: 10 }}>
             {title}
           </Text>
           <Text

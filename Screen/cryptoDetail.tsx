@@ -22,7 +22,7 @@ import {
 import { RouteProp, useRoute } from "@react-navigation/native";
 import { Float } from "react-native/Libraries/Types/CodegenTypes";
 import { getDetailCoinData, getdatacoinchart } from "../services/request";
-
+import { AntDesign } from "@expo/vector-icons";
 export const data = [
   { x: 1453075200, y: 1.47 },
   { x: 1453161600, y: 1.37 },
@@ -87,7 +87,10 @@ const CryptoDetails = () => {
         >
           <Header
             title={route.params.name}
-            iconRight={<Feather name="star" size={24} color="black" />}
+            iconRight={<AntDesign name="star" size={24} color="black" />}
+            iconRightTick={<Feather name="star" size={24} color="black" />}
+            isSHowiconLeft={true}
+            coinId={route.params.coinId}
           />
           <View style={{ marginTop: 20 }}>
             <Image

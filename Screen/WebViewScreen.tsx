@@ -16,7 +16,7 @@ const WebViewScreen = () => {
   const route = useRoute<Route>();
   return (
     <View>
-      <Header title="News" />
+      <Header title="News" isSHowiconLeft={true} />
       <View style={{height:"100%"}}>
         <WebView
           source={{ uri: route.params.url }}

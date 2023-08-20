@@ -39,7 +39,7 @@ const AllCrypto = () => {
   });
   return (
     <View>
-      <Header title="List of Coin" />
+      <Header title="List of Coin" isSHowiconLeft={true} />
       {loading ? (
         <View>
           <FlatList

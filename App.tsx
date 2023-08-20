@@ -9,16 +9,13 @@ import CryptoDetails from "./Screen/cryptoDetail";
 import Navigation from "./navigation";
 import { useNavigation } from "@react-navigation/native";
 import Home from "./Screen/Home";
-
+import WatchlistProvider from "./Context/WatchlistContext";
 export default function App() {
   return (
     <NavigationContainer>
-      {/* <View style={styles.container}> */}
-      <Navigation />
-      {/* <Home/> */}
-      {/* <AllCrypto/> */}
-      {/* <CryptoDetails /> */}
-      {/* </View> */}
+      <WatchlistProvider>
+        <Navigation />
+      </WatchlistProvider>
     </NavigationContainer>
   );
 }

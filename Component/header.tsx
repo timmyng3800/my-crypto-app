@@ -9,15 +9,30 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-
+import { useWatchList } from "../Context/WatchlistContext";
 type Props = {
   title?: string;
   iconRight?: ReactNode;
+  iconRightTick?: ReactNode;
+  isSHowiconLeft?: boolean;
+  coinId?: string;
 };
 
 const Header = (props: Props) => {
-  const { title, iconRight } = props;
+  const { title, iconRight, isSHowiconLeft, coinId, iconRightTick } = props;
   const navigation = useNavigation();
+  const { watchlistcoinId, storeWatchlistcoinId, removeCoinId } =
+    useWatchList();
+  const checkifCoinisinWatchlist = () => {
+    return watchlistcoinId.some((coinIdValue: any) => coinIdValue === coinId);
+  };
+
+  const handleWatchlistCoin = () => {
+    if (checkifCoinisinWatchlist()) {
+      return removeCoinId(coinId);
+    } else return storeWatchlistcoinId(coinId);
+  };
+
   return (
     <View style={styles.container}>
       <View
@@ -27,11 +42,13 @@ const Header = (props: Props) => {
           marginBottom: 20,
         }}
       >
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <View style={{ marginTop: 5 }}>
-            <Ionicons name="chevron-back" size={28} color="black" />
-          </View>
-        </TouchableOpacity>
+        {isSHowiconLeft ? (
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <View style={{ marginTop: 5 }}>
+              <Ionicons name="chevron-back" size={28} color="black" />
+            </View>
+          </TouchableOpacity>
+        ) : null}
 
         <Text
           style={{
@@ -42,7 +59,13 @@ const Header = (props: Props) => {
         >
           {title}
         </Text>
-        <View style={{ marginTop: 5 }}>{iconRight}</View>
+        <TouchableOpacity onPress={() => handleWatchlistCoin()}>
+          {checkifCoinisinWatchlist() ? (
+            <View style={{ marginTop: 5 }}>{iconRight}</View>
+          ) : (
+            <View style={{ marginTop: 5 }}>{iconRightTick}</View>
+          )}
+        </TouchableOpacity>
       </View>
     </View>
   );

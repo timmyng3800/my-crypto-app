@@ -37,7 +37,7 @@ export default function Home() {
     } else return null;
 
     const News = await getNewsCrypto();
-    if (News.status === "ok") {
+    if (News?.status === "ok") {
       setNews(News.articles);
     } else return null;
   };
@@ -86,6 +86,7 @@ export default function Home() {
           <Card title="News" hasViewAll={false}>
             <FlatList
               horizontal
+              showsHorizontalScrollIndicator={false}
               data={news?.slice(0, 5)}
               renderItem={(item) => (
                 <ListNews
