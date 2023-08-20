@@ -16,12 +16,12 @@ type Nav = {
   navigate: (value: string, params: any) => void;
 };
 const ListNews = (props: Props) => {
-  const { author, title, url, urlToImage, description } = props;
+  const { title, url, urlToImage, description } = props;
   const navigation = useNavigation<Nav>();
-  const [coin, setCoin] = useState() as any;
-
   return (
-    <TouchableOpacity>
+    <TouchableOpacity
+      onPress={() => navigation.navigate("WebviewScreen", { url })}
+    >
       <View style={styles.container}>
         <Image
           style={{ width: "100%", height: 200, borderRadius: 8 }}

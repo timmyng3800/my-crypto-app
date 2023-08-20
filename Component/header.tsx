@@ -17,10 +17,16 @@ type Props = {
 
 const Header = (props: Props) => {
   const { title, iconRight } = props;
-  const navigation = useNavigation()
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
-      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          marginBottom: 20,
+        }}
+      >
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <View style={{ marginTop: 5 }}>
             <Ionicons name="chevron-back" size={28} color="black" />
@@ -38,21 +44,6 @@ const Header = (props: Props) => {
         </Text>
         <View style={{ marginTop: 5 }}>{iconRight}</View>
       </View>
-
-      {/* <View>
-        <FlatList
-          data={cryptocurrencies}
-          renderItem={(item) => (
-            <ListItem
-              name={item.item.name}
-              image={item.item.image}
-              current_price={item.item.current_price}
-              symbol={item.item.symbol}
-              price_change={item.item.price_change_percentage_24h}
-            />
-          )}
-        />
-      </View> */}
     </View>
   );
 };

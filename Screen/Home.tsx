@@ -54,8 +54,6 @@ export default function Home() {
     };
   });
 
-
-
   return (
     <View>
       <Text style={styles.title}>Crypto Currency Tracker</Text>
