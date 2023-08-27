@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { View, StyleSheet, Text, FlatList, RefreshControl, ActivityIndicator } from "react-native";
+import { View, StyleSheet, FlatList } from "react-native";
 
 import Header from "../Component/header";
 import { useWatchList } from "../Context/WatchlistContext";
@@ -16,17 +16,15 @@ const FavouriteCoin = () => {
       setGetData(coinDetail);
       setLoading(true)
     } else return null;
-    console.log("coindetail", coinDetail);
   };
   useEffect(() => {
     GetlistofDetails();
-  }, [0]);
-  console.log("this is value from context", watchlistcoinId);
+  }, [watchlistcoinId]);
 
   return (
     <View>
       <Header title="Favourite Coins" isSHowiconLeft={false} />
-      <View style={{height:800}}>
+      <View>
         <FlatList
           data={getData}
           renderItem={(item) => (
@@ -39,13 +37,6 @@ const FavouriteCoin = () => {
               coinId={item.item.id}
             />
           )}
-          refreshControl={
-            <RefreshControl 
-            refreshing={loading}
-            tintColor="blue"
-            onRefresh={GetlistofDetails}
-            />
-          }
         />
       </View>
     </View>

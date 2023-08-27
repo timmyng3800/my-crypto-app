@@ -34,7 +34,7 @@ export const getListCoinMarket = async () => {
 export const getNewsCrypto = async () => {
   try {
     const response = await axios.get(
-      `https://newsapi.org/v2/everything?q=bitcoin&from=2023-07-20&sortBy=publishedAt&apiKey=00794961679940ca87716520439685c7`
+      `https://newsapi.org/v2/everything?q=tesla&from=2023-07-27&sortBy=publishedAt&apiKey=00794961679940ca87716520439685c7`
     );
     return response.data;
   } catch (e) {
